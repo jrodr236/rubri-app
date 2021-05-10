@@ -10,4 +10,4 @@ FLUSH PRIVILEGES;
 EXIT
 ```
 
-# La contrasenya utilitzada a ********** ha de configurar-se també al fitxer logica/claus.py
+La contrasenya utilitzada a ********** ha de configurar-se també al fitxer logica/claus.py
