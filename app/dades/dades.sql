@@ -7,6 +7,10 @@ DROP TABLE IF EXISTS Avalua;
 
 DROP TABLE IF EXISTS Grau;
 
+DROP TABLE IF EXISTS Criteri_Activitat;
+
+DROP TABLE IF Exists Activitat;
+
 DROP TABLE IF EXISTS Criteri;
 
 DROP TABLE IF EXISTS Rubrica;
@@ -55,6 +59,20 @@ CREATE TABLE Criteri (
     PRIMARY KEY (nom, nom_rubrica),
     FOREIGN KEY (numero_uf) REFERENCES UF(numero),
     FOREIGN KEY (nom_rubrica) REFERENCES Rubrica(nom)
+);
+
+CREATE TABLE Activitat(
+    nom VARCHAR(20) NOT NULL,
+    PRIMARY KEY (nom)
+);
+
+CREATE TABLE Criteri_Activitat (
+    nom_criteri VARCHAR(20) NOT NULL,
+    nom_rubrica VARCHAR(20) NOT NULL,
+    nom_activitat VARCHAR(20) NOT NULL,
+    PRIMARY KEY(nom_criteri, nom_rubrica, nom_activitat),
+    FOREIGN KEY (nom_criteri, nom_rubrica) REFERENCES Criteri(nom, nom_rubrica),
+    FOREIGN KEY (nom_activitat) REFERENCES Activitat(nom)
 );
 
 CREATE TABLE Grau (
@@ -112,6 +130,17 @@ INSERT INTO Criteri (nom, nom_rubrica, numero_uf, descripcio, pes)
 VALUES
        ("Windows", "Sistemes", 1, "Instal·lació, configuració i verificació d'un sistema Windows", 10),
        ("Linux", "Sistemes", 1, "Instal·lació, configuració i verificació d'un sistema Linux", 20);
+
+INSERT INTO Activitat(nom)
+VALUES
+       ("Active Directory"),
+       ("Hacking Day");
+
+INSERT INTO Criteri_Activitat(nom_criteri, nom_rubrica, nom_activitat)
+VALUES
+       ("Windows", "Sistemes", "Active Directory"),
+       ("Linux", "Sistemes", "Active Directory"),
+       ("Linux", "Sistemes", "Hacking Day");
 
 INSERT INTO Grau (nom, nom_criteri, nom_rubrica, descripcio, qualificacio)
 VALUES
