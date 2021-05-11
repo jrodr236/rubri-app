@@ -15,6 +15,14 @@ DROP TABLE IF EXISTS Alumne;
 
 DROP TABLE IF EXISTS UF;
 
+DROP TABLE IF EXISTS Professor;
+
+CREATE TABLE Professor (
+    cognoms VARCHAR(40) NOT NULL,
+    nom VARCHAR(40) NOT NULL,
+    PRIMARY KEY (cognoms, nom)
+);
+
 CREATE TABLE UF (
     numero DECIMAL(1) NOT NULL,
     nom VARCHAR(20) NOT NULL,
@@ -30,7 +38,11 @@ CREATE TABLE Alumne (
 CREATE TABLE Rubrica (
     nom VARCHAR(20) NOT NULL,
     descripcio VARCHAR(100),
-    PRIMARY KEY (nom)
+    cognoms_professor VARCHAR(40),
+    nom_professor VARCHAR(40),
+    PRIMARY KEY (nom),
+    FOREIGN KEY (cognoms_professor, nom_professor)
+        REFERENCES Professor(cognoms, nom)
 );
 
 
