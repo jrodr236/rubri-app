@@ -10,7 +10,6 @@ class Alumne:
         return "{}, {}".format(self.cognoms, self.nom)
 
 
-
 class Rubrica:
     def __init__(self, nom : str, descripcio : str):
         self.nom = nom
@@ -31,7 +30,7 @@ class Criteri:
         return "{} ({}). Pes={}".format(self.nom, self.descripcio, self.pes)
 
 
-class Grau:
+class Nivell:
     def __init__(self, nom : str, criteri : Criteri, descripcio : str, qualificacio : int):
         self.nom = nom
         self.criteri = criteri
@@ -42,10 +41,10 @@ class Grau:
         return "{} ({}). Qualificacio={}".format(self.nom, self.descripcio, self.qualificacio)
 
 
-class Nivell:
-    def __init__(self, alumne : Alumne, grau : Grau, comentari : str):
+class AlumneNivell:
+    def __init__(self, alumne : Alumne, nivell : Nivell, comentari : str):
         self.alumne = alumne
-        self.grau = grau
+        self.nivell = nivell
         self.comentari = comentari
 
     def __str__(self):
@@ -53,4 +52,4 @@ class Nivell:
                "     {}\n" \
                "     {}\n" \
                "     {}\n" \
-               "     ({})".format(self.alumne, self.grau.criteri.rubrica, self.grau.criteri, self.grau, self.comentari)
+               "     ({})".format(self.alumne, self.nivell.criteri.rubrica, self.nivell.criteri, self.nivell, self.comentari)

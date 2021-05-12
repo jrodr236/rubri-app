@@ -1,11 +1,11 @@
 USE rubriDB;
 
 
-DROP TABLE IF EXISTS Nivell;
+DROP TABLE IF EXISTS Alumne_Nivell;
 
 DROP TABLE IF EXISTS Avalua;
 
-DROP TABLE IF EXISTS Grau;
+DROP TABLE IF EXISTS Nivell;
 
 DROP TABLE IF EXISTS Criteri_Activitat;
 
@@ -75,7 +75,7 @@ CREATE TABLE Criteri_Activitat (
     FOREIGN KEY (nom_activitat) REFERENCES Activitat(nom)
 );
 
-CREATE TABLE Grau (
+CREATE TABLE Nivell (
     nom VARCHAR(20) NOT NULL,
     nom_criteri VARCHAR(20) NOT NULL,
     nom_rubrica VARCHAR(20) NOT NULL,
@@ -97,17 +97,17 @@ CREATE TABLE Avalua (
         ON UPDATE CASCADE
 );
 
-CREATE TABLE Nivell (
+CREATE TABLE Alumne_Nivell (
     cognoms_alumne VARCHAR(40) NOT NULL,
     nom_alumne VARCHAR(40) NOT NULL,
-    nom_grau VARCHAR(20) NOT NULL,
+    nom_nivell VARCHAR(20) NOT NULL,
     nom_criteri VARCHAR(20) NOT NULL,
     nom_rubrica VARCHAR(20) NOT NULL,
     comentari VARCHAR(50),
-    PRIMARY KEY (cognoms_alumne, nom_alumne, nom_grau, nom_criteri, nom_rubrica),
+    PRIMARY KEY (cognoms_alumne, nom_alumne, nom_nivell, nom_criteri, nom_rubrica),
     FOREIGN KEY (cognoms_alumne, nom_alumne) REFERENCES Alumne(cognoms, nom)
         ON UPDATE CASCADE,
-    FOREIGN KEY (nom_grau, nom_criteri, nom_rubrica) REFERENCES Grau(nom, nom_criteri, nom_rubrica)
+    FOREIGN KEY (nom_nivell, nom_criteri, nom_rubrica) REFERENCES Nivell(nom, nom_criteri, nom_rubrica)
         ON UPDATE CASCADE
 );
 
@@ -142,7 +142,7 @@ VALUES
        ("Linux", "Sistemes", "Active Directory"),
        ("Linux", "Sistemes", "Hacking Day");
 
-INSERT INTO Grau (nom, nom_criteri, nom_rubrica, descripcio, qualificacio)
+INSERT INTO Nivell (nom, nom_criteri, nom_rubrica, descripcio, qualificacio)
 VALUES
        ("Espectacular", "Windows", "Sistemes", "Instal·la Windows de forma espectacular", 10),
        ("Casi perfecte", "Windows", "Sistemes", "Instal·la Windows, però es deixa alguna cosa", 7.5),
@@ -158,7 +158,7 @@ VALUES
        ("Camps", "Maria", "Xarxes"),
        ("Puertas", "Albert", "Xarxes");
 
-INSERT INTO Nivell (cognoms_alumne, nom_alumne, nom_grau, nom_criteri, nom_rubrica, comentari)
+INSERT INTO Alumne_Nivell (cognoms_alumne, nom_alumne, nom_nivell, nom_criteri, nom_rubrica, comentari)
 VALUES
        ("Rodríguez Bellido", "Joan", "Espectacular", "Windows", "Sistemes", "Aquest nano és un crack"),
        ("Puertas", "Albert", "No funciona", "Windows", "Sistemes", "Ho intenta, però no se'n surt");
