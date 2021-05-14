@@ -11,82 +11,90 @@
     integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 
   <title>Hello, rubri-app!</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
 
 <body>
   <h1>Hello, rubri-app!</h1>
 
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Criteri</th>
-        <th scope="col">No iniciat [0-1]</th>
-        <th scope="col">Aprenent [2-4]</th>
-        <th scope="col">Competent [5-6]</th>
-        <th scope="col">Experimentat [7-8]</th>
-        <th scope="col">Expert [9-10]</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">Realitza instal·lacions de diferents sistemes operatius</th>
-        <td>
-          <input type="radio" class="btn-check" name="options-outlined" id="no-iniciat" autocomplete="off" checked>
-          <label class="btn btn-outline-danger" for="no-iniciat">No aconsegueix instal·lar cap sistema operatiu.</label>
-        </td>
-        <td>
-          <input type="radio" class="btn-check" name="options-outlined" id="aprenent" autocomplete="off">
-          <label class="btn btn-outline-warning" for="aprenent">Instal·la sistemes operatius amb entorn gràfic</label>
-        </td>
-        <td>
-          <input type="radio" class="btn-check" name="options-outlined" id="competent" autocomplete="off">
-          <label class="btn btn-outline-success" for="competent">Realitza instal·lacions duals</label>
-        </td>
-        <td>
-          <input type="radio" class="btn-check" name="options-outlined" id="experimentat" autocomplete="off">
-          <label class="btn btn-outline-primary" for="experimentat">Comparteix una partició de dades entre diversos
-            sistemes operatius</label>
-        </td>
-        <td>
-          <input type="radio" class="btn-check" name="options-outlined" id="expert" autocomplete="off">
-          <label class="btn btn-outline-dark" for="expert">Realitza instal·lacions sense entorn gràfic de sistemes
-            operatius</label>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">Implementa dominis.</th>
-        <td>
-          <input type="radio" class="btn-check" name="dom-options-outlined" id="dom-no-iniciat" autocomplete="off" checked>
-          <label class="btn btn-outline-danger" for="dom-no-iniciat">No implementa dominis Active Directory.</label>
-        </td>
-        <td>
-          <input type="radio" class="btn-check" name="dom-options-outlined" id="dom-aprenent" autocomplete="off">
-          <label class="btn btn-outline-warning" for="dom-aprenent">Mostra el procediment per implementar un domini d'Active
-            Directory, però no aconsegueix que funcioni correctament</label>
-        </td>
-        <td>
-          <input type="radio" class="btn-check" name="dom-options-outlined" id="dom-competent" autocomplete="off">
-          <label class="btn btn-outline-success" for="dom-competent">Implementa un domini d'Active Directory, amb un sol
-            controlador, verificant el seu funcionament.</label>
-        </td>
-        <td>
-          <input type="radio" class="btn-check" name="dom-options-outlined" id="dom-experimentat" autocomplete="off">
-          <label class="btn btn-outline-primary" for="dom-experimentat">Implementa un domini d'Active Directory, amb més
-            d'un controlador, verificant el seu funcionament.</label>
-        </td>
-        <td>
-          <input type="radio" class="btn-check" name="dom-options-outlined" id="dom-expert" autocomplete="off">
-          <label class="btn btn-outline-dark" for="dom-expert">Implementa un sistema multi-dominis d'Active Directory, amb
-            més d'un controlador, verificant el seu funcionament.</label>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div id="app">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Criteri</th>
+          <th scope="col">No iniciat [0-1]</th>
+          <th scope="col">Aprenent [2-4]</th>
+          <th scope="col">Competent [5-6]</th>
+          <th scope="col">Experimentat [7-8]</th>
+          <th scope="col">Expert [9-10]</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(criteri, i) in criteris">
+          <th scope="row">{{criteri.nom}}</th>
+
+          <td v-for="(nivell, j) in criteri.nivells">
+            <input type="radio" class="btn-check" :name="'options-outlined'+i" :id="'no-iniciat'+i+'-'+j"
+              autocomplete="off" :checked="j==0">
+            <label :class="'btn btn-outline-'+etiquetaColor[j]" :for="'no-iniciat'+i+'-'+j">{{nivell}}</label>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
     crossorigin="anonymous"></script>
 
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        etiquetaColor: [
+          "danger",
+          "warning",
+          "success",
+          "primary",
+          "dark"
+        ],
+        criteris: [
+          {
+            nom: "Realitza instal·lacions de diferents sistemes operatius.",
+            nivells: [
+              "No aconsegueix instal·lar cap sistema operatiu.",
+              "Instal·la sistemes operatius amb entorn gràfic",
+              "Realitza instal·lacions duals",
+              "Comparteix una partició de dades entre diversos sistemes operatius",
+              "Realitza instal·lacions sense entorn gràfic de sistemes operatius"
+            ]
+          },
+          {
+            nom: "Implementa dominis.",
+            nivells: [
+              "No aconsegueix instal·lar cap sistema operatiu.",
+              "Instal·la sistemes operatius amb entorn gràfic",
+              "Realitza instal·lacions duals",
+              "Comparteix una partició de dades entre diversos sistemes operatius",
+              "Realitza instal·lacions sense entorn gràfic de sistemes operatius"
+            ]
+          },
+          {
+            nom: "Instal·la software específic segons la documentació tècnica. Eines ofimàtiques, d'Internet i utilitats de propòsit general.",
+            nivells: [
+              "No aconsegueix instal·lar cap sistema operatiu.",
+              "Instal·la sistemes operatius amb entorn gràfic",
+              "Realitza instal·lacions duals",
+              "Comparteix una partició de dades entre diversos sistemes operatius",
+              "Realitza instal·lacions sense entorn gràfic de sistemes operatius"
+            ]
+          }
+        ]
+      }
+    })
+  </script>
 
 </body>
 
