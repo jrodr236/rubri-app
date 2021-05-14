@@ -12,12 +12,14 @@
 
   <title>Hello, rubri-app!</title>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
 </head>
 
 <body>
   <h1>Hello, rubri-app!</h1>
 
   <div id="app">
+    {{advice}}
     <table class="table table-striped table-hover">
       <thead>
         <tr>
@@ -53,6 +55,7 @@
     new Vue({
       el: '#app',
       data: {
+        advice: "waiting...",
         etiquetaColor: [
           "danger",
           "warning",
@@ -92,6 +95,23 @@
             ]
           }
         ]
+      },
+      created() {
+        axios.get('https://swapi.dev/api/films/')
+          .then(response => {
+            this.advice = response.data.results[0].title
+            pelis = response.data.results
+            for (i in pelis) {
+              this.criteris[i].nom = pelis[i].title
+              for (var j = 0; j < 5; j++) {
+                this.criteris[i].nivells[j] = pelis[i].characters[j]
+              }
+
+            }
+          })
+          .catch(error => {
+            this.advice = 'There was an error: ' + error.message
+          })
       }
     })
   </script>
