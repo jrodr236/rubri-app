@@ -148,7 +148,12 @@ VALUES
        ("Casi perfecte", "Windows", "Sistemes", "Instal·la Windows, però es deixa alguna cosa", 7.5),
        ("Funciona", "Windows", "Sistemes", "Instal·la Windows i funciona", 5),
        ("No funciona", "Windows", "Sistemes", "No aconsegueix instal·lar Windows, però casi", 2.5),
-       ("Res", "Windows", "Sistemes", "No és capaç de fer res", 0);
+       ("Res", "Windows", "Sistemes", "No és capaç de fer res", 0),
+       ("Espectacular (l)", "Linux", "Sistemes", "Instal·la Windows de forma espectacular", 10),
+       ("Casi perfecte (l)", "Linux", "Sistemes", "Instal·la Windows, però es deixa alguna cosa", 7.5),
+       ("Funciona (l)", "Linux", "Sistemes", "Instal·la Windows i funciona", 5),
+       ("No funciona (l)", "Linux", "Sistemes", "No aconsegueix instal·lar Windows, però casi", 2.5),
+       ("Res (l)", "Linux", "Sistemes", "No és capaç de fer res", 0);;
 
 INSERT INTO Avalua (cognoms_alumne, nom_alumne, nom_rubrica)
 VALUES
