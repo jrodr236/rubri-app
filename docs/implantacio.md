@@ -11,3 +11,12 @@ EXIT
 ```
 
 La contrasenya utilitzada a ********** ha de configurar-se també al fitxer logica/claus.py
+
+
+---
+
+API
+===
+npm install
+
+npm start

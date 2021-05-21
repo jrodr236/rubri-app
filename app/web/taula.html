@@ -72,7 +72,8 @@
               "Realitza instal·lacions duals",
               "Comparteix una partició de dades entre diversos sistemes operatius",
               "Realitza instal·lacions sense entorn gràfic de sistemes operatius"
-            ]
+            ],
+            nivellPerCarregar: 0
           },
           {
             nom: "Implementa dominis.",
@@ -82,7 +83,8 @@
               "Realitza instal·lacions duals",
               "Comparteix una partició de dades entre diversos sistemes operatius",
               "Realitza instal·lacions sense entorn gràfic de sistemes operatius"
-            ]
+            ],
+            nivellPerCarregar: 0
           },
           {
             nom: "Instal·la software específic segons la documentació tècnica. Eines ofimàtiques, d'Internet i utilitats de propòsit general.",
@@ -92,22 +94,29 @@
               "Realitza instal·lacions duals",
               "Comparteix una partició de dades entre diversos sistemes operatius",
               "Realitza instal·lacions sense entorn gràfic de sistemes operatius"
-            ]
+            ],
+            nivellPerCarregar: 0
           }
         ]
       },
       created() {
-        axios.get('https://swapi.dev/api/films/')
+        axios.get('http://localhost:5000/api/criteris/')
           .then(response => {
-            this.advice = response.data.results[0].title
-            pelis = response.data.results
-            for (i in pelis) {
-              this.criteris[i].nom = pelis[i].title
-              for (var j = 0; j < 5; j++) {
-                this.criteris[i].nivells[j] = pelis[i].characters[j]
-              }
-
+            this.advice = response.data;
+            criteris = response.data;
+            for (i in criteris) {
+              this.criteris[i].nom = criteris[i].nom
+              var indexNivellActual = 0;
             }
+            axios.get('http://localhost:5000/api/nivells/')
+              .then(response => {
+                this.advice = response.data;
+                nivells = response.data;
+                for (nivell of nivells) {
+                  const criteriDelNivell = this.criteris.find(element => element.nom == nivell.nom_criteri);
+                  criteriDelNivell.nivells[criteriDelNivell.nivellPerCarregar++] = nivell.nom;
+                }
+              })
           })
           .catch(error => {
             this.advice = 'There was an error: ' + error.message
